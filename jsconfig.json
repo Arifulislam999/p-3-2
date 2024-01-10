@@ -1,0 +1,7 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./src/*", "https://images.pexels.com/"]
+    }
+  }
+}
