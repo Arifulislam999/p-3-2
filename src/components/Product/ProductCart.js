@@ -26,7 +26,7 @@ const ProductCart = ({ singleProduct }) => {
         <div className="my-2 ml-2  ">
           <img
             width={180}
-            className=" h-28 rounded-sm border border-green-500"
+            className=" h-28 rounded-sm border border-gray-400"
             src={imageLink ? imageLink : car}
             alt={title}
           />

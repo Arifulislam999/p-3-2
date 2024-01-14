@@ -16,7 +16,10 @@ import Link from "next/link";
 import ProductDetailsRight from "./ProductDetailsRight";
 import { Lato } from "next/font/google";
 import { useSearchParams } from "next/navigation";
-import { useGetSingleProductDetailsQuery } from "@/Redux/Features/ProductApi/productApi";
+import {
+  useGetSemilerProductQuery,
+  useGetSingleProductDetailsQuery,
+} from "@/Redux/Features/ProductApi/productApi";
 import Loader from "@/Loader/Loader";
 import { getDateWithMonth } from "@/utils/timeAndDataWithMonth";
 import { getProductDateTime } from "@/utils/getProductDateTime";
@@ -62,11 +65,17 @@ const ProductDetailsPage = () => {
     imageLink,
     productPrice,
     productPriceType,
+    accessoriesType,
     title,
     userLocation,
     userSubLocation,
     createdAt,
+    _id,
   } = data || {};
+
+  // semiler product query
+  const { data: semilerProducts, isSuccess: semilerProductSuccess } =
+    useGetSemilerProductQuery({ productName: accessoriesType, id: _id });
 
   return !isLoading ? (
     <div>
@@ -212,10 +221,10 @@ const ProductDetailsPage = () => {
         </h2>
         <hr className="w-full" />
         <div className="ml-4 flex flex-wrap justify-center">
-          <SimilerProduct />
-          <SimilerProduct />
-          <SimilerProduct />
-          <SimilerProduct />
+          {semilerProductSuccess &&
+            semilerProducts?.data.map((singleProduct, index) => (
+              <SimilerProduct semilerProduct={singleProduct} key={index} />
+            ))}
         </div>
         <div className="text-center">
           <Link href="/product">

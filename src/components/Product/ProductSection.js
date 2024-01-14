@@ -9,12 +9,16 @@ import { FaLocationDot } from "react-icons/fa6";
 import { FaBagShopping } from "react-icons/fa6";
 import Loader from "@/Loader/Loader";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { getTotlalProductSlice } from "@/Redux/Features/ProductApi/productSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getTotlalProductSlice,
+  paginationPageCount,
+} from "@/Redux/Features/ProductApi/productSlice";
 import { useSearchParams } from "next/navigation";
 const ProductSection = () => {
   const searchParams = useSearchParams();
   const pageNumber = searchParams?.get("page");
+  const { pageCount } = useSelector((state) => state.productMonitoring);
   const dispatch = useDispatch();
   const {
     data: allProducts,
@@ -23,12 +27,15 @@ const ProductSection = () => {
   } = useGetAllProductsQuery({ page: Number(pageNumber) });
   useEffect(() => {
     if (isSuccess) {
-      let totalPagination = Math.ceil(
-        Number(allProducts?.totalProductCount) / 5
+      dispatch(
+        paginationPageCount(
+          Math.ceil(Number(allProducts?.totalProductCount) / 5)
+        )
       );
-      dispatch(getTotlalProductSlice(totalPagination));
+
+      dispatch(getTotlalProductSlice(pageCount));
     }
-  }, [allProducts, isSuccess]);
+  }, [allProducts, isSuccess, pageCount]);
   return !isLoading ? (
     <div>
       <div className="mt-8 bg-slate-800 min-h-full rounded-md shadow-[rgba(6,_24,_44,_0.4)_0px_0px_0px_2px,_rgba(6,_24,_44,_0.65)_0px_4px_6px_-1px,_rgba(255,_255,_255,_0.08)_0px_1px_0px_inset]">

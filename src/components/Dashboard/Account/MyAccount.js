@@ -6,11 +6,20 @@ import Link from "next/link";
 import { useUserLoginStatusQuery } from "@/Redux/Features/AuthApi/authApi";
 import Loader from "@/Loader/Loader";
 import { useGetAllProductSpecificUserQuery } from "@/Redux/Features/ProductApi/productApi";
+import PaginationAccount from "./PaginationAccount";
+import { useEffect } from "react";
+import { useSearchParams } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getTotlalProductSlice,
+  paginationPageCount,
+} from "@/Redux/Features/ProductApi/productSlice";
 const Poppin = Noto_Sans({
   weight: "600",
   subsets: ["latin"],
 });
 const MyAccount = () => {
+  const dispatch = useDispatch();
   const {
     data: userLoginData,
     isSuccess,
@@ -19,10 +28,26 @@ const MyAccount = () => {
     refetchOnMountOrArgChange: true,
   });
   const { data } = userLoginData || {};
-
+  const urlPage = useSearchParams();
+  const pageNumber = urlPage.get("page");
   // all post product specific user
-  const { data: allProductSpecificUser, isLoading: specificUserLoading } =
-    useGetAllProductSpecificUserQuery();
+  const {
+    data: allProductSpecificUser,
+    isLoading: specificUserLoading,
+    isSuccess: specificUserSuccess,
+  } = useGetAllProductSpecificUserQuery({ pageNo: Number(pageNumber) || 1 });
+  const { pageCount } = useSelector((state) => state.productMonitoring);
+
+  useEffect(() => {
+    if (specificUserSuccess) {
+      dispatch(
+        paginationPageCount(
+          Math.ceil(Number(allProductSpecificUser?.totalProductCount) / 3)
+        )
+      );
+      dispatch(getTotlalProductSlice(pageCount || 1));
+    }
+  }, [pageNumber, specificUserSuccess, allProductSpecificUser, pageCount]);
   return !isLoading ? (
     <div className="mb-5">
       <h2
@@ -65,9 +90,7 @@ const MyAccount = () => {
           />
         ))
       )}
-
-      {/* if post abable now  */}
-      {/* <MyAccountPost /> */}
+      {allProductSpecificUser?.data?.length > 0 && <PaginationAccount />}
     </div>
   ) : (
     <Loader />

@@ -22,10 +22,15 @@ const productApi = apiSlice.injectEndpoints({
       invalidatesTags: ["postProduct"],
     }),
     getAllProductSpecificUser: builder.query({
-      query: () => ({
-        url: "/api/product/getallproductspecificuser",
+      query: ({ pageNo }) => ({
+        url: `/api/product/getallproductspecificuser?page=${pageNo}`,
       }),
       providesTags: ["getSpecificUser"],
+    }),
+    getSemilerProduct: builder.query({
+      query: ({ productName, id }) => ({
+        url: `/api/product/semilerproduct?product=${productName}&id=${id}`,
+      }),
     }),
   }),
 });
@@ -34,4 +39,5 @@ export const {
   useGetSingleProductDetailsQuery,
   usePostProductMutation,
   useGetAllProductSpecificUserQuery,
+  useGetSemilerProductQuery,
 } = productApi;

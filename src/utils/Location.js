@@ -142,15 +142,15 @@ export const accessoriesName = [
 // brand name
 export const allBrandName = [
   "Accessories Type",
-  "Laptop & Computer",
+  "Laptop-Computer",
   "Mobile",
   "Car",
-  "Tv & Led",
+  "Tv-Led",
   "Bike",
   "Others",
 ];
 export const corrospondingBrandAccessoriesName = {
-  "Laptop & Computer": [
+  "Laptop-Computer": [
     "Select",
     "HP (Hewlett-Packard)",
     "Apple",
@@ -209,7 +209,7 @@ export const corrospondingBrandAccessoriesName = {
     "Others",
     // Add more brands as needed
   ],
-  "Tv & Led": [
+  "Tv-Led": [
     "Select",
     "Samsung",
     "LG",
