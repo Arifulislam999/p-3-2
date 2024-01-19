@@ -10,7 +10,7 @@ const Loader = () => {
             visible={true}
             height="90"
             width="90"
-            color="#FF4433"
+            color="#1197C1"
             ariaLabel="rings-loading"
             wrapperStyle={{}}
             wrapperClass=""
@@ -22,3 +22,16 @@ const Loader = () => {
 };
 
 export default Loader;
+
+// import "./loader.css";
+// const Loader = () => {
+//   return (
+//     <div className="center">
+//       <div className="ring">
+//         <span className="sp">loading...</span>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Loader;

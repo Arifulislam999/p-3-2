@@ -17,7 +17,6 @@ const FullImage = ({ image, setExpan }) => {
       <div className="w-full flex flex-col justify-center items-center h-screen">
         <img
           alt="image"
-          priority={true}
           className=" h-full w-2/3 z-10 my-2 border-2 rounded-md border-gray-600"
           src={image}
         />

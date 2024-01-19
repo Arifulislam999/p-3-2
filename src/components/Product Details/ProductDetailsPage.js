@@ -9,25 +9,31 @@ import { FaExpandArrowsAlt } from "react-icons/fa";
 import { FaFacebookSquare } from "react-icons/fa";
 import { IoLogoWhatsapp } from "react-icons/io5";
 import { FaBluetooth } from "react-icons/fa";
-import { CiStar } from "react-icons/ci";
+import { IoStar } from "react-icons/io5";
 import FullImage from "./FullImage";
 import SimilerProduct from "./SimilerProduct";
 import Link from "next/link";
 import ProductDetailsRight from "./ProductDetailsRight";
 import { Lato } from "next/font/google";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
+  useFavoriteProductMutation,
+  useFavoriteStatusQuery,
   useGetSemilerProductQuery,
   useGetSingleProductDetailsQuery,
 } from "@/Redux/Features/ProductApi/productApi";
 import Loader from "@/Loader/Loader";
 import { getDateWithMonth } from "@/utils/timeAndDataWithMonth";
 import { getProductDateTime } from "@/utils/getProductDateTime";
+import { useSelector } from "react-redux";
 const Latos = Lato({
   weight: "400",
   subsets: ["latin"],
 });
 const ProductDetailsPage = () => {
+  const router = useRouter();
+  // user account number
+  const { userId: accountUserId } = useSelector((state) => state.logingStatus);
   const searchParams = useSearchParams();
   const searchId = searchParams.get("id");
   const searchCreatorId = searchParams.get("creator_id");
@@ -73,10 +79,32 @@ const ProductDetailsPage = () => {
     _id,
   } = data || {};
 
+  // Favorite item
+  const [favStatus, setFavStatus] = useState(false);
+  const [favoriteProduct] = useFavoriteProductMutation();
+  const handlerFavorite = () => {
+    if (accountUserId && accountUserId !== "") {
+      favoriteProduct({ data: { productId: _id, userId: accountUserId || 1 } });
+      setFavStatus((prev) => !prev);
+    } else {
+      router.replace("/login");
+    }
+  };
+  // favorite status query
+
+  const { data: favoriteStatus } = useFavoriteStatusQuery(
+    {
+      userId: accountUserId,
+      productId: searchId,
+    },
+    { refetchOnMountOrArgChange: true }
+  );
+  useEffect(() => {
+    setFavStatus(favoriteStatus?.status);
+  }, [favoriteStatus]);
   // semiler product query
   const { data: semilerProducts, isSuccess: semilerProductSuccess } =
     useGetSemilerProductQuery({ productName: accessoriesType, id: _id });
-
   return !isLoading ? (
     <div>
       {expanImage && (
@@ -93,10 +121,11 @@ const ProductDetailsPage = () => {
       >
         <div className="mx-4 flex justify-between">
           <div>
-            <h2
-              className={`text-gray-300 font-semibold text-2xl pt-2 ${Latos.className}`}
-            >
-              {title} .({conditions})
+            <h2 className={`text-gray-300 font-semibold text-2xl pt-2 `}>
+              {title}{" "}
+              <span className={`${Latos.className} text-sm `}>
+                ({conditions})
+              </span>
             </h2>
             <h2 className={`text-gray-400 text-sm ${Latos.className} `}>
               Posted on {getDateWithMonth(createdAt)}{" "}
@@ -118,19 +147,22 @@ const ProductDetailsPage = () => {
                 className="text-white text-3xl cursor-pointer mt-[-3px]"
                 title="Favorite"
               >
-                <CiStar />
+                <IoStar
+                  className={favStatus && "text-yellow-500"}
+                  onClick={handlerFavorite}
+                />
               </span>
             </div>
 
             {share && (
               <div className="flex bg-blue-100   py-2 transition-all delay-200  rounded-sm absolute mt-[-30px] ml-[-105px]">
-                <span className="text-blue-500 text-2xl cursor-pointer mx-1">
+                <span className="text-blue-500 text-2xl cursor-pointer mx-1 hover:-translate-y-1.5 transition-all delay-150">
                   <FaFacebookSquare />
                 </span>
-                <span className="text-green-500 text-2xl cursor-pointer mx-1">
+                <span className="text-green-500 text-2xl cursor-pointer mx-1 hover:-translate-y-1.5 transition-all delay-150">
                   <IoLogoWhatsapp />
                 </span>
-                <span className="text-blue-500 text-2xl cursor-pointer mx-1">
+                <span className="text-blue-500 text-2xl cursor-pointer mx-1 hover:-translate-y-1.5 transition-all delay-150">
                   <FaBluetooth />
                 </span>
               </div>

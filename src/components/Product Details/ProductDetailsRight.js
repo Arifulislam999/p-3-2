@@ -62,15 +62,13 @@ const ProductDetailsRight = ({ height, creator }) => {
           )}
           {!info && (
             <div>
-              <span className="font-thin text-sm text-gray-300 font-mono ml-8 bg-gray-500 px-2 py-0.5 rounded-sm">
+              <span className="font-thin text-sm text-gray-300 font-mono ml-2 bg-gray-500 px-2 py-0.5 rounded-sm">
                 {phone}
               </span>
 
-              {email?.length <= 20 && (
-                <span className="font-thin text-sm text-gray-300 font-mono ml-1 bg-gray-500 px-2 py-0.5 rounded-sm">
-                  {email}
-                </span>
-              )}
+              <span className="font-thin text-sm text-gray-300 font-mono ml-1 bg-gray-500 px-0.5 py-0.5 rounded-sm ">
+                {email?.length > 28 ? `${email.slice(0, 25)}..` : email}
+              </span>
             </div>
           )}
         </div>

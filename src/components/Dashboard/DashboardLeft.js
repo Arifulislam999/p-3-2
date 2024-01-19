@@ -14,7 +14,7 @@ const DashboardLeft = () => {
     <>
       <div className="basis-1/5">
         <div className="flex">
-          <MdManageAccounts className="text-gray-400 text-3xl mt-0.5 mr-2" />
+          <MdManageAccounts className="text-cyan-100  text-3xl mt-0.5 mr-2" />
           <h1 className="font-sans text-2xl text-gray-400">Account</h1>
         </div>
         <hr className="w-10/12 bg-gray-400 mt-2" />
@@ -98,7 +98,7 @@ const DashboardLeft = () => {
 
         <div className="mt-7">
           <div className="flex">
-            <FaUserGroup className="text-gray-400 text-2xl mt-1 mr-2" />
+            <FaUserGroup className="text-cyan-100  text-2xl mt-1 mr-2" />
             <h1 className="font-sans text-2xl text-gray-400">Jobs</h1>
           </div>
           <hr className="w-10/12 bg-gray-400 mt-2" />

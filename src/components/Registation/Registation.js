@@ -13,6 +13,8 @@ const Registation = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [err, setError] = useState(false);
@@ -43,6 +45,8 @@ const Registation = () => {
           phone,
           name,
           email,
+          password,
+          isValidEmail: false,
           userImageLin: "",
           gender: "",
           dob: "",
@@ -128,6 +132,18 @@ const Registation = () => {
                           placeholder="Your phone number"
                         />
                       </div>
+                      {/* password section  */}
+                      <div className="md:col-span-5 text-gray-300 text-lg ">
+                        <label htmlFor="password">Password</label>
+                        <input
+                          onChange={(e) => setPassword(e.target.value)}
+                          type="password"
+                          name="password"
+                          id="password"
+                          className="h-10  mt-1 rounded px-4 w-full bg-slate-800 border-0 focus:outline-none "
+                          placeholder="Enter your password"
+                        />
+                      </div>
 
                       <div className="md:col-span-5 text-lg text-gray-300 ">
                         <label htmlFor="email">Email Address</label>
@@ -176,7 +192,7 @@ const Registation = () => {
                             disabled={isLoading}
                             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                           >
-                            Submit
+                            {isLoading ? "Submit..." : "Submit"}
                           </button>
                         </div>
                       </div>

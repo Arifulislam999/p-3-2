@@ -29,7 +29,6 @@ const SimilerProduct = ({ semilerProduct }) => {
           <div className="p-2" draggable={false}>
             <img
               src={imageLink ? imageLink : laptops}
-              priority={true}
               alt="laptop"
               width={200}
               className="h-28 w-56  rounded-sm"

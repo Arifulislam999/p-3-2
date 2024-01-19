@@ -48,7 +48,7 @@ const MyAccount = () => {
       dispatch(getTotlalProductSlice(pageCount || 1));
     }
   }, [pageNumber, specificUserSuccess, allProductSpecificUser, pageCount]);
-  return !isLoading ? (
+  return !specificUserLoading ? (
     <div className="mb-5">
       <h2
         className={`text-gray-500 text-2xl capitalize ml-2 font-sans ${Poppin.className}`}

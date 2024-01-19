@@ -80,7 +80,6 @@ const PostForm = () => {
       }, 3000);
     }
   }, [error, submitProduct]);
-
   const handlerSubmit = (e) => {
     e.preventDefault();
     try {
@@ -89,6 +88,7 @@ const PostForm = () => {
           data: {
             creatorId: _id,
             title,
+            Favorite: [],
             userLocation: divitionLocationValue,
             userSubLocation: subLocation,
             accessoriesType: accessoriesName,
@@ -101,8 +101,15 @@ const PostForm = () => {
             description: productDesc,
           },
         });
+      } else if (userLoginStatus?.status === false) {
+        setErrStatus(true);
+        setErr(userLoginStatus?.message);
+        setTimeout(() => {
+          setErrStatus(false);
+        }, 3000);
       } else {
-        setErr("Submit Error Data");
+        setErrStatus(true);
+        setErr(userLoginStatus?.message);
         setTimeout(() => {
           setErrStatus(false);
         }, 3000);
@@ -229,32 +236,29 @@ const PostForm = () => {
                   );
                 })
               ) : (
-                <option className="bg-slate-800">Accessories Brand Name</option>
+                <>
+                  <option className="bg-slate-800">
+                    Accessories Brand Name
+                  </option>
+                  <option className="bg-slate-800">Others</option>
+                </>
               )}
             </select>
           </div>
           <div className="flex flex-col mt-3 w-1/2">
-            <label htmlFor="name" className="text-gray-400 ml-3  mb-1">
+            <label htmlFor="modelname" className="text-gray-400 ml-3  mb-1">
               Accessories Model
             </label>
 
-            <select
+            <input
               required
               onChange={(e) => setProductModel(e.target.value)}
-              className="px-4 py-1 border-b border-b-orange-300 mx-3 focus:outline-none focus:border-blue-500 rounded-md transition duration-300 ease-in-out focus:ring-1 focus:ring-blue-400 bg-transparent text-white"
-            >
-              {accessoriesModelNo?.length > 1 ? (
-                accessoriesModelNo?.map((model, index) => {
-                  return (
-                    <option value={model} className="bg-slate-800" key={index}>
-                      {model}
-                    </option>
-                  );
-                })
-              ) : (
-                <option className="bg-slate-800">Model No</option>
-              )}
-            </select>
+              type="text"
+              id="modelname"
+              name="modelname"
+              placeholder="Enter model name"
+              className="px-2 py-1 border-b border-b-orange-300 w-full  focus:outline-none focus:border-blue-500 rounded-md transition duration-300 ease-in-out focus:ring-1 focus:ring-blue-400 bg-transparent text-white placeholder-gray-400"
+            />
           </div>
         </div>
         {/* third row  */}
@@ -354,7 +358,7 @@ const PostForm = () => {
               type="submit"
               className="py-2 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-300 text-gray-300 hover:bg-blue-200 disabled:opacity-50 disabled:pointer-events-none dark:bg-blue-300/90 dark:hover:bg-blue-200/40  dark:text-gray-200 dark:hover:text-gray-100 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
             >
-              Submit
+              {isLoading ? "Submit..." : "Submit"}
             </button>
           </div>
         </div>

@@ -4,7 +4,7 @@ import UserAccount from "../User/UserAccount";
 import { useUserLoginStatusQuery } from "@/Redux/Features/AuthApi/authApi";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { logStatus } from "@/Redux/Features/AuthApi/authSlice";
+import { logStatus, userAccountNo } from "@/Redux/Features/AuthApi/authSlice";
 import { usePathname } from "next/navigation";
 
 const Nav = () => {
@@ -15,6 +15,7 @@ const Nav = () => {
   useEffect(() => {
     if (isSuccess) {
       dispatch(logStatus(status));
+      dispatch(userAccountNo(loggedinStatus?.data._id));
     }
   }, [status, isSuccess]);
   const pathName = usePathname();
@@ -66,13 +67,11 @@ const Nav = () => {
                 </Link>
               ) : (
                 <div>
-                  {isSuccess && (
-                    <Link href="/dashboard">
-                      <UserAccount
-                        userImage={loggedinStatus?.data?.userImageLink}
-                      />
-                    </Link>
-                  )}
+                  <Link href="/dashboard">
+                    <UserAccount
+                      userImage={loggedinStatus?.data?.userImageLink}
+                    />
+                  </Link>
                 </div>
               )}
               {/* <li className="font-semibold px-2 cursor-pointer hover:font-bold hover:tracking-wide">
