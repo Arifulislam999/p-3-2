@@ -35,7 +35,10 @@ const MyAccount = () => {
     data: allProductSpecificUser,
     isLoading: specificUserLoading,
     isSuccess: specificUserSuccess,
-  } = useGetAllProductSpecificUserQuery({ pageNo: Number(pageNumber) || 1 });
+  } = useGetAllProductSpecificUserQuery(
+    { pageNo: Number(pageNumber) || 1 },
+    { refetchOnMountOrArgChange: true }
+  );
   const { pageCount } = useSelector((state) => state.productMonitoring);
 
   useEffect(() => {

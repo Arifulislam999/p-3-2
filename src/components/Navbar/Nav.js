@@ -13,7 +13,7 @@ const Nav = () => {
   const { data: loggedinStatus, isSuccess } = useUserLoginStatusQuery();
   const { status } = loggedinStatus || {};
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess && status) {
       dispatch(logStatus(status));
       dispatch(userAccountNo(loggedinStatus?.data._id));
     }
