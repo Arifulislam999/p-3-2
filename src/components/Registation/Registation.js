@@ -26,7 +26,9 @@ const Registation = () => {
 
   useEffect(() => {
     if (isSuccess && responseSubmitData?.status === true && !isLoading) {
+      localStorage.setItem("token", responseSubmitData?.data?.token);
       router.replace("/product");
+
       dispatch(logStatus(true));
     } else if (error) {
       setErrorMessage(error?.data?.message);

@@ -21,6 +21,7 @@ const Login = () => {
     useUserLoginMutation();
   useEffect(() => {
     if (isSuccess && loginSubmitData?.status === true) {
+      localStorage.setItem("token", loginSubmitData?.data?.token);
       router.push("/product");
       dispatch(logStatus(true));
     } else if (error?.data) {
