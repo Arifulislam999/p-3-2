@@ -102,7 +102,9 @@ const SettingsDashboard = () => {
           <div className="mt-5  ml-5">
             <button
               onClick={() => {
-                dispatch(logStatus(false)), router.push("/product");
+                dispatch(logStatus(false)),
+                  router.push("/product"),
+                  localStorage.setItem("token", "");
               }}
               type="button"
               className="py-2 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-red-300 text-gray-300 hover:bg-red-200 disabled:opacity-50 disabled:pointer-events-none dark:bg-red-300/80 dark:hover:bg-red-200/40  dark:text-gray-200 dark:hover:text-gray-100 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"

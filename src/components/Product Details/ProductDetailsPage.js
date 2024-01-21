@@ -26,6 +26,7 @@ import Loader from "@/Loader/Loader";
 import { getDateWithMonth } from "@/utils/timeAndDataWithMonth";
 import { getProductDateTime } from "@/utils/getProductDateTime";
 import { useSelector } from "react-redux";
+import { useTitle } from "./useTitle";
 const Latos = Lato({
   weight: "400",
   subsets: ["latin"],
@@ -78,6 +79,9 @@ const ProductDetailsPage = () => {
     createdAt,
     _id,
   } = data || {};
+
+  // title create for every product.
+  useTitle();
 
   // Favorite item
   const [favStatus, setFavStatus] = useState(false);
