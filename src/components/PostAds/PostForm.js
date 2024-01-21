@@ -8,8 +8,10 @@ import {
   corrospondingModelNames,
   divitionLocation,
 } from "@/utils/Location";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import productVector from "../../../public/Images/product.jpg";
 
 const PostForm = () => {
   const router = useRouter();
@@ -54,6 +56,7 @@ const PostForm = () => {
   const [priceType, setPriceType] = useState("");
   const [imageLink, setImageLink] = useState("");
   const [productDesc, setProductDesc] = useState("");
+  const [tag, setTag] = useState("");
 
   // redux message
   const [err, setErr] = useState("");
@@ -98,6 +101,7 @@ const PostForm = () => {
             productPrice: price,
             productPriceType: priceType,
             imageLink,
+            tag: tag.toLowerCase(),
             description: productDesc,
           },
         });
@@ -317,18 +321,19 @@ const PostForm = () => {
 
         <div className="w-full mt-3 sm:flex">
           <div className="flex flex-col mt-3 sm:w-1/2 mx-2">
-            <label htmlFor="ProductLink" className="text-gray-400 ml-2 mb-1">
-              Product Image Link
+            <label htmlFor="Gender" className="text-gray-400 ml-3 mb-1">
+              Sell For Tag
             </label>
-            <input
+
+            <select
               required
-              onChange={(e) => setImageLink(e.target.value)}
-              type="text"
-              id="ProductLink"
-              name="ProductLink"
-              placeholder="Enter Product Image Link"
-              className="px-2 py-1 border-b border-b-gray-400 w-full  focus:outline-none focus:border-blue-500 rounded-md transition duration-300 ease-in-out focus:ring-1 focus:ring-blue-400 bg-transparent text-white placeholder-gray-400"
-            />
+              onChange={(e) => setTag(e.target.value)}
+              className="px-2 py-1 border-b border-b-gray-400 mx-2 focus:outline-none focus:border-blue-500 rounded-md transition duration-300 ease-in-out focus:ring-1 focus:ring-blue-400 bg-transparent text-white"
+            >
+              <option className="bg-slate-800">Select</option>
+              <option className="bg-slate-800">Urgent</option>
+              <option className="bg-slate-800">Featured</option>
+            </select>
           </div>
           <div className="flex flex-col mt-3 sm:w-1/2 mx-2">
             <label
@@ -346,6 +351,32 @@ const PostForm = () => {
               name="Productdesctiption"
               placeholder="About Product Description"
               className="px-2 py-1 border w-full border-gray-400  focus:outline-none focus:border-blue-500 rounded-md transition duration-300 ease-in-out focus:ring-1 focus:ring-blue-400 bg-transparent text-white placeholder-gray-400"
+            />
+          </div>
+        </div>
+        {/* image field  */}
+        <div className=" flex flex-col justify-cente items-center ">
+          <div className="flex px-3  items-center justify-center   flex-col w-full mt-2 sm:w-1/2 mx-4">
+            <Image
+              width={250}
+              height={250}
+              src={imageLink ? imageLink : productVector}
+              alt="image"
+              className="rounded-sm border-2 border-green-400 h-48 w-72 mt-3"
+            />
+          </div>
+          <div className="flex  flex-col w-full mt-2 sm:w-1/2  px-4">
+            <label htmlFor="ProductLink" className="text-gray-400 ml-2 mb-1">
+              Product Image Link
+            </label>
+            <input
+              required
+              onChange={(e) => setImageLink(e.target.value)}
+              type="text"
+              id="ProductLink"
+              name="ProductLink"
+              placeholder="Enter Product Image Link"
+              className="px-2 py-1 border-b border-b-gray-400 w-full  focus:outline-none focus:border-blue-500 rounded-md transition duration-300 ease-in-out focus:ring-1 focus:ring-blue-400 bg-transparent text-white placeholder-gray-400"
             />
           </div>
         </div>
