@@ -1,21 +1,38 @@
 "use client";
-import React, { useState } from "react";
+import {
+  getSortTagByUser,
+  getSortTextByUser,
+} from "@/Redux/Features/ProductApi/productSlice";
+import React, { useEffect, useState } from "react";
 import { IoIosArrowDropup } from "react-icons/io";
 import { IoIosArrowDropdown } from "react-icons/io";
+import { useDispatch, useSelector } from "react-redux";
 const ProductLeftSide = () => {
+  const { sortText } = useSelector((state) => state.productMonitoring);
+  const dispatch = useDispatch();
   const [category, setCategory] = useState(true);
   const [locationarea, setLocation] = useState(true);
+  const [adsText, setAdsText] = useState(sortText);
+  const [tag, setTag] = useState("");
   const handlerCategory = () => {
     setCategory((prev) => !prev);
   };
   const handlerLocation = () => {
     setLocation((prev) => !prev);
   };
+  useEffect(() => {
+    dispatch(getSortTextByUser(adsText));
+
+    dispatch(getSortTagByUser(tag));
+  }, [adsText, tag]);
   return (
     <>
       <div className="basis-1/4">
         <p className="text-gray-400 mb-1.5">Sort results by</p>
-        <select className="cursor-pointer bg-slate-800 border border-black text-gray-900 text-md rounded-md focus:ring-blue-500 focus:border-blue-500 block w-4/5 p-1.5 dark:bg-slate-800 dark:border-white dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ">
+        <select
+          onChange={(e) => setAdsText(e.target.value)}
+          className="cursor-pointer bg-slate-800 border border-black text-gray-900 text-md rounded-md focus:ring-blue-500 focus:border-blue-500 block w-4/5 p-1.5 dark:bg-slate-800 dark:border-white dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 "
+        >
           <option className="pt-3 font-serif font-medium">
             Date:Newest on top
           </option>
@@ -34,8 +51,9 @@ const ProductLeftSide = () => {
           <div className="flex items-center my-3">
             <input
               id="URGENT"
+              onChange={(e) => setTag(tag === "urgent" ? "" : "urgent")}
               type="checkbox"
-              value=""
+              value={tag}
               className="w-3.5 h-3.5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
             />
             <label
@@ -48,8 +66,9 @@ const ProductLeftSide = () => {
           <div className="flex items-center mb-4">
             <input
               id="FEATURED"
+              onChange={(e) => setTag(tag === "featured" ? "" : "featured")}
               type="checkbox"
-              value=""
+              value={tag}
               className="w-3.5 h-3.5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
             />
             <label

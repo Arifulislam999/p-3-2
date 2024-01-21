@@ -31,6 +31,12 @@ const Latos = Lato({
   weight: "400",
   subsets: ["latin"],
 });
+
+// toast message start
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+// toast message end
+
 const ProductDetailsPage = () => {
   const router = useRouter();
   // user account number
@@ -85,7 +91,8 @@ const ProductDetailsPage = () => {
 
   // Favorite item
   const [favStatus, setFavStatus] = useState(false);
-  const [favoriteProduct] = useFavoriteProductMutation();
+  const [favoriteProduct, { data: favoriteStatusMutation }] =
+    useFavoriteProductMutation();
   const handlerFavorite = () => {
     if (accountUserId && accountUserId !== "") {
       favoriteProduct({ data: { productId: _id, userId: accountUserId || 1 } });
@@ -106,6 +113,13 @@ const ProductDetailsPage = () => {
   useEffect(() => {
     setFavStatus(favoriteStatus?.status);
   }, [favoriteStatus]);
+  useEffect(() => {
+    if (favoriteStatusMutation?.message === "add favorite product.") {
+      toast.success(favoriteStatusMutation?.message);
+    } else {
+      toast.success(favoriteStatusMutation?.message);
+    }
+  }, [favoriteStatusMutation]);
   // semiler product query
   const { data: semilerProducts, isSuccess: semilerProductSuccess } =
     useGetSemilerProductQuery({ productName: accessoriesType, id: _id });
@@ -185,11 +199,11 @@ const ProductDetailsPage = () => {
         </div>
 
         <div className="mx-4 my-5 flex justify-between">
-          <div className="basis-2/3 h-[450px] bg-slate-900 shadow-xl flex flex-col items-center justify-center">
+          <div className="basis-2/3 h-[450px] 2xl:h-[520px] bg-slate-900 shadow-xl flex flex-col items-center justify-center">
             <div className=" flex flex-col items-center justify-center">
               <img
                 alt={title}
-                className="w-5/12 absolute h-[450px] border border-cyan-300/40"
+                className="w-5/12 absolute h-[450px] 2xl:h-[520px] border border-cyan-300/40"
                 src={imageLink ? imageLink : laptop}
               />
             </div>
@@ -275,6 +289,18 @@ const ProductDetailsPage = () => {
             </button>
           </Link>
         </div>
+        <ToastContainer
+          position="top-right"
+          autoClose={4000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        />
       </div>
       <Footer />
     </div>

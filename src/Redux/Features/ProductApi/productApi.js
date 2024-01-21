@@ -3,8 +3,8 @@ const { apiSlice } = require("../API/apiSlice");
 const productApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getAllProducts: builder.query({
-      query: ({ page }) => ({
-        url: `/api/product/getallproduct?page=${page}`,
+      query: ({ page, filter, tags }) => ({
+        url: `/api/product/getallproduct?page=${page}&filter=${filter}&tags=${tags}`,
       }),
       providesTags: ["postProduct"],
     }),

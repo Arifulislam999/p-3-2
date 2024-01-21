@@ -18,13 +18,19 @@ import { useSearchParams } from "next/navigation";
 const ProductSection = () => {
   const searchParams = useSearchParams();
   const pageNumber = searchParams?.get("page");
-  const { pageCount } = useSelector((state) => state.productMonitoring);
+  const { pageCount, sortText, tag } = useSelector(
+    (state) => state.productMonitoring
+  );
   const dispatch = useDispatch();
   const {
     data: allProducts,
     isLoading,
     isSuccess,
-  } = useGetAllProductsQuery({ page: Number(pageNumber) });
+  } = useGetAllProductsQuery({
+    page: Number(pageNumber),
+    filter: sortText,
+    tags: tag,
+  });
   useEffect(() => {
     if (isSuccess) {
       dispatch(

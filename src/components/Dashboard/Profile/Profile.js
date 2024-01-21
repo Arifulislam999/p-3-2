@@ -10,6 +10,11 @@ import {
   useUserUpdateMutation,
 } from "@/Redux/Features/AuthApi/authApi";
 import { useRouter } from "next/navigation";
+
+// toast message start
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+// toast message end
 const Poppin = Noto_Sans({
   weight: "600",
   subsets: ["latin"],
@@ -49,6 +54,7 @@ const Profile = () => {
   }, [userData]);
   const handlerClick = async () => {
     try {
+      toast.info("Update Successfully");
       await userUpdate({
         data: {
           userImage: link,
@@ -60,6 +66,7 @@ const Profile = () => {
           userSubLocation,
         },
       });
+
       router.replace("/dashboard/settings");
     } catch (error) {
       console.log("Not update user data.");
@@ -238,6 +245,18 @@ const Profile = () => {
               {isLoading ? "Continue..." : "Continue"}
             </button>
           </div>
+          <ToastContainer
+            position="top-right"
+            autoClose={4000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="dark"
+          />
         </div>
       </div>
     </div>

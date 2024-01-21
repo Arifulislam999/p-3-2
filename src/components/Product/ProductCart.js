@@ -1,6 +1,7 @@
 "use client";
 import { getTimeDifferenceFromNow } from "@/utils/timeDifference";
 import car from "../../../public/Images/car1.jpeg";
+import { BiSolidBadgeCheck } from "react-icons/bi";
 import { Roboto_Slab } from "next/font/google";
 import Link from "next/link";
 const roboto = Roboto_Slab({
@@ -16,13 +17,14 @@ const ProductCart = ({ singleProduct }) => {
     productPrice,
     imageLink,
     title,
+    tag,
     creatorId,
   } = singleProduct || {};
   return (
     <Link
       href={`/productdetails?_title=${title}&id=${_id}&creator_id=${creatorId}`}
     >
-      <div className="flex shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] bg-slate-900/50 cursor-pointer  w-11/12 2xl:w-9/12 mt-3 rounded-sm hover:bg-slate-800/50 transition-all delay-150">
+      <div className="flex relative shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] bg-slate-900/50 cursor-pointer  w-11/12 2xl:w-9/12 mt-3 rounded-sm hover:bg-slate-800/50 transition-all delay-150">
         <div className="my-2 ml-2  ">
           <img
             width={180}
@@ -45,6 +47,14 @@ const ProductCart = ({ singleProduct }) => {
             </h1>
           </div>
         </div>
+        {tag === "urgent" && (
+          <div
+            className="text-cyan-600 absolute text-3xl top-2 right-2"
+            title="Urgent Sell"
+          >
+            <BiSolidBadgeCheck />
+          </div>
+        )}
       </div>
       {/* <div className=" relative">
         <span className="absolute ml-[81.5%]  mt-[-26px] text-gray-600 ">

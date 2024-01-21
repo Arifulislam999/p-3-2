@@ -124,10 +124,13 @@ const PostForm = () => {
   return (
     <form onSubmit={handlerSubmit}>
       <div className="shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]  bg-slate-800 w-full mt-3 rounded-sm  transition-all delay-150  px-3 py-3">
+        <h3 className="text-center text-gray-500 text-2xl italic underline">
+          Form Data
+        </h3>
         <div className="w-full flex ">
-          <div className="flex flex-col mt-3 ml-7 w-1/2 mx-4">
+          <div className="flex flex-col mt-3 mx-5 w-full ">
             <label htmlFor="title" className="text-gray-400  mb-1">
-              Title
+              Product title
             </label>
             <input
               required
@@ -137,75 +140,74 @@ const PostForm = () => {
               id="title"
               name="title"
               placeholder="Enter Product Title"
-              className="px-2 py-1 border-b border-b-orange-300 w-full  focus:outline-none focus:border-blue-500 rounded-md transition duration-300 ease-in-out focus:ring-1 focus:ring-blue-400 bg-transparent text-white placeholder-gray-400"
+              className="px-2 py-1 border-b border-b-gray-400 w-full  focus:outline-none focus:border-blue-500 rounded-md transition duration-300 ease-in-out focus:ring-1 focus:ring-blue-400 bg-transparent text-white placeholder-gray-400"
             />
-          </div>
-
-          {/* locations  start */}
-          <div className="flex w-1/2 mt-1 mx-4">
-            <div className="flex flex-col mt-3 w-1/2">
-              <label htmlFor="name" className="text-gray-400 ml-3  mb-1">
-                Location
-              </label>
-
-              <select
-                required
-                onChange={(e) => setDivitionLocation(e.target.value)}
-                className="px-4 py-1 border-b border-b-orange-300 mx-3 focus:outline-none focus:border-blue-500 rounded-md transition duration-300 ease-in-out focus:ring-1 focus:ring-blue-400 bg-transparent text-white"
-              >
-                {divitionLocation?.map((divition, index) => {
-                  return (
-                    <option className="bg-slate-800" key={index}>
-                      {divition}
-                    </option>
-                  );
-                })}
-              </select>
-            </div>
-            <div className="flex flex-col mt-3 w-1/2 ">
-              <label htmlFor="name" className="text-gray-400 ml-3 mb-1">
-                Sub-Location
-              </label>
-
-              <select
-                required
-                onChange={(e) => setSubLocation(e.target.value)}
-                className="px-4 py-1 border-b border-b-orange-300 mx-3 focus:outline-none focus:border-blue-500 rounded-md transition duration-300 ease-in-out focus:ring-1 focus:ring-blue-400 bg-transparent text-white"
-              >
-                {subArea?.length > 1 ? (
-                  subArea?.map((subLocation, index) => {
-                    return (
-                      <option
-                        value={subLocation}
-                        className="bg-slate-800"
-                        key={index}
-                      >
-                        {subLocation}
-                      </option>
-                    );
-                  })
-                ) : (
-                  <option className="bg-slate-800">Sub Location</option>
-                )}
-              </select>
-            </div>
           </div>
         </div>
 
         {/* second row in form  */}
+        {/* locations  start */}
+        <div className="sm:flex w-full mt-5">
+          <div className="flex flex-col mt-3 mx-3 sm:w-1/2">
+            <label htmlFor="name" className="text-gray-400 ml-4 mb-1">
+              Location
+            </label>
 
-        <div className="w-full flex mt-6">
+            <select
+              required
+              onChange={(e) => setDivitionLocation(e.target.value)}
+              className="px-4 py-1 border-b border-b-gray-400 mx-1 focus:outline-none focus:border-blue-500 rounded-md transition duration-300 ease-in-out focus:ring-1 focus:ring-blue-400 bg-transparent text-white"
+            >
+              {divitionLocation?.map((divition, index) => {
+                return (
+                  <option className="bg-slate-800" key={index}>
+                    {divition}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+          <div className="flex flex-col mt-3 mx-3 sm:w-1/2 ">
+            <label htmlFor="name" className="text-gray-400 ml-3 mb-1">
+              Sub-Location
+            </label>
+
+            <select
+              required
+              onChange={(e) => setSubLocation(e.target.value)}
+              className="px-4 py-1 border-b border-b-gray-400 mx-1 focus:outline-none focus:border-blue-500 rounded-md transition duration-300 ease-in-out focus:ring-1 focus:ring-blue-400 bg-transparent text-white"
+            >
+              {subArea?.length > 1 ? (
+                subArea?.map((subLocation, index) => {
+                  return (
+                    <option
+                      value={subLocation}
+                      className="bg-slate-800"
+                      key={index}
+                    >
+                      {subLocation}
+                    </option>
+                  );
+                })
+              ) : (
+                <option className="bg-slate-800">Sub Location</option>
+              )}
+            </select>
+          </div>
+        </div>
+        {/* third row in form  */}
+        <div className="w-full sm:flex mt-3">
           {/* accessoriesType and Model  */}
 
-          <div className="flex flex-col mt-3 w-1/2">
-            <label htmlFor="name" className="text-gray-400 ml-3  mb-1">
+          <div className="flex flex-col mt-3 sm:w-1/2">
+            <label htmlFor="name" className="text-gray-400 ml-5  mb-1">
               Accessories Type
             </label>
 
             <select
               required
               onChange={(e) => setAccessoriesName(e.target.value)}
-              className="px-4 py-1 border-b border-b-orange-300 mx-3 focus:outline-none focus:border-blue-500 rounded-md transition duration-300 ease-in-out focus:ring-1 focus:ring-blue-400 bg-transparent text-white"
+              className="px-4 py-1 border-b border-b-gray-400 mx-3 focus:outline-none focus:border-blue-500 rounded-md transition duration-300 ease-in-out focus:ring-1 focus:ring-blue-400 bg-transparent text-white"
             >
               {allBrandName?.map((brand, index) => {
                 return (
@@ -217,15 +219,15 @@ const PostForm = () => {
             </select>
           </div>
           {/* model  */}
-          <div className="flex  flex-col mt-3 w-1/3 ">
-            <label htmlFor="name" className="text-gray-400 ml-3 mb-1">
+          <div className="flex  flex-col mt-3 sm:w-1/2 ">
+            <label htmlFor="name" className="text-gray-400 ml-5 mb-1">
               Accessories Brand Name
             </label>
 
             <select
               required
               onChange={(e) => setAccessoriesModelValue(e.target.value)}
-              className="px-4 py-1 border-b border-b-orange-300 mx-3 focus:outline-none focus:border-blue-500 rounded-md transition duration-300 ease-in-out focus:ring-1 focus:ring-blue-400 bg-transparent text-white"
+              className="px-4 py-1 border-b border-b-gray-400 mx-3 focus:outline-none focus:border-blue-500 rounded-md transition duration-300 ease-in-out focus:ring-1 focus:ring-blue-400 bg-transparent text-white"
             >
               {accessoriesModel?.length > 1 ? (
                 accessoriesModel?.map((model, index) => {
@@ -245,7 +247,10 @@ const PostForm = () => {
               )}
             </select>
           </div>
-          <div className="flex flex-col mt-3 w-1/2">
+        </div>
+        {/* fourth row  */}
+        <div className="w-full mt-3  sm:flex">
+          <div className="flex flex-col mt-3  sm:w-1/2">
             <label htmlFor="modelname" className="text-gray-400 ml-3  mb-1">
               Accessories Model
             </label>
@@ -257,29 +262,30 @@ const PostForm = () => {
               id="modelname"
               name="modelname"
               placeholder="Enter model name"
-              className="px-2 py-1 border-b border-b-orange-300 w-full  focus:outline-none focus:border-blue-500 rounded-md transition duration-300 ease-in-out focus:ring-1 focus:ring-blue-400 bg-transparent text-white placeholder-gray-400"
+              className="px-2 py-1 border-b border-b-gray-400 mx-3 focus:outline-none focus:border-blue-500 rounded-md transition duration-300 ease-in-out focus:ring-1 focus:ring-blue-400 bg-transparent text-white"
             />
           </div>
-        </div>
-        {/* third row  */}
-        <div className="w-full mt-6 flex">
-          <div className="flex flex-col mt-3 w-1/3">
-            <label htmlFor="Gender" className="text-gray-400 ml-4 mb-1">
+
+          <div className="flex flex-col mt-3  sm:w-1/2">
+            <label htmlFor="Gender" className="text-gray-400 ml-3 mb-1">
               Conditions
             </label>
 
             <select
               required
               onChange={(e) => setConditions(e.target.value)}
-              className="px-4 py-1 border-b border-b-orange-300 mx-3 focus:outline-none focus:border-blue-500 rounded-md transition duration-300 ease-in-out focus:ring-1 focus:ring-blue-400 bg-transparent text-white"
+              className="px-2 py-1 border-b border-b-gray-400 mx-2 focus:outline-none focus:border-blue-500 rounded-md transition duration-300 ease-in-out focus:ring-1 focus:ring-blue-400 bg-transparent text-white"
             >
               <option className="bg-slate-800">Select</option>
               <option className="bg-slate-800">Used</option>
               <option className="bg-slate-800">Brand New!</option>
             </select>
           </div>
-          <div className="flex flex-col mt-3 w-1/3 mx-2">
-            <label htmlFor="ProductPrice" className="text-gray-400 ml-4 mb-1">
+        </div>
+
+        <div className="sm:flex mt-3 w-full">
+          <div className="flex flex-col mt-3 sm:w-1/2 mx-2">
+            <label htmlFor="ProductPrice" className="text-gray-400 ml-2 mb-1">
               Product Price
             </label>
             <input
@@ -289,18 +295,18 @@ const PostForm = () => {
               id="ProductPrice"
               name="ProductPrice"
               placeholder="Enter Product Price"
-              className="px-2 py-1 border-b border-b-orange-300 w-full  focus:outline-none focus:border-blue-500 rounded-md transition duration-300 ease-in-out focus:ring-1 focus:ring-blue-400 bg-transparent text-white placeholder-gray-400"
+              className="px-2 py-1 border-b border-b-gray-400 w-full  focus:outline-none focus:border-blue-500 rounded-md transition duration-300 ease-in-out focus:ring-1 focus:ring-blue-400 bg-transparent text-white placeholder-gray-400"
             />
           </div>
 
-          <div className="flex flex-col mt-3 w-1/3">
+          <div className="flex flex-col mt-3 sm:w-1/2">
             <label htmlFor="ptype" className="text-gray-400 ml-4 mb-1">
               Product Price Type
             </label>
             <select
               required
               onChange={(e) => setPriceType(e.target.value)}
-              className="px-4 py-1 border-b border-b-orange-300 mx-3 focus:outline-none focus:border-blue-500 rounded-md transition duration-300 ease-in-out focus:ring-1 focus:ring-blue-400 bg-transparent text-white"
+              className="px-2 py-1 border-b border-b-gray-400 mx-2 focus:outline-none focus:border-blue-500 rounded-md transition duration-300 ease-in-out focus:ring-1 focus:ring-blue-400 bg-transparent text-white"
             >
               <option className="bg-slate-800">Select</option>
               <option className="bg-slate-800">Fixed</option>
@@ -309,10 +315,9 @@ const PostForm = () => {
           </div>
         </div>
 
-        {/* fourth row  */}
-        <div className="w-full mt-6 flex">
-          <div className="flex flex-col mt-3 w-1/2 mx-2">
-            <label htmlFor="ProductLink" className="text-gray-400 ml-4 mb-1">
+        <div className="w-full mt-3 sm:flex">
+          <div className="flex flex-col mt-3 sm:w-1/2 mx-2">
+            <label htmlFor="ProductLink" className="text-gray-400 ml-2 mb-1">
               Product Image Link
             </label>
             <input
@@ -322,13 +327,13 @@ const PostForm = () => {
               id="ProductLink"
               name="ProductLink"
               placeholder="Enter Product Image Link"
-              className="px-2 py-1 border-b border-b-orange-300 w-full  focus:outline-none focus:border-blue-500 rounded-md transition duration-300 ease-in-out focus:ring-1 focus:ring-blue-400 bg-transparent text-white placeholder-gray-400"
+              className="px-2 py-1 border-b border-b-gray-400 w-full  focus:outline-none focus:border-blue-500 rounded-md transition duration-300 ease-in-out focus:ring-1 focus:ring-blue-400 bg-transparent text-white placeholder-gray-400"
             />
           </div>
-          <div className="flex flex-col mt-3 w-1/2 mx-2">
+          <div className="flex flex-col mt-3 sm:w-1/2 mx-2">
             <label
               htmlFor="Productdesctiption"
-              className="text-gray-400 ml-4 mb-1"
+              className="text-gray-400 ml-2 mb-1"
             >
               Product Description
             </label>
@@ -340,7 +345,7 @@ const PostForm = () => {
               id="Productdesctiption"
               name="Productdesctiption"
               placeholder="About Product Description"
-              className="px-2 py-1 border w-full border-orange-300  focus:outline-none focus:border-blue-500 rounded-md transition duration-300 ease-in-out focus:ring-1 focus:ring-blue-400 bg-transparent text-white placeholder-gray-400"
+              className="px-2 py-1 border w-full border-gray-400  focus:outline-none focus:border-blue-500 rounded-md transition duration-300 ease-in-out focus:ring-1 focus:ring-blue-400 bg-transparent text-white placeholder-gray-400"
             />
           </div>
         </div>
