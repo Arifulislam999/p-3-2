@@ -1,7 +1,7 @@
 "use client";
 import { getTimeDifferenceFromNow } from "@/utils/timeDifference";
 import car from "../../../public/Images/car1.jpeg";
-import { BiSolidBadgeCheck } from "react-icons/bi";
+import { TbBadgeFilled } from "react-icons/tb";
 import { Roboto_Slab } from "next/font/google";
 import Link from "next/link";
 const roboto = Roboto_Slab({
@@ -52,7 +52,7 @@ const ProductCart = ({ singleProduct }) => {
             className="text-cyan-600 absolute text-3xl top-2 right-2"
             title="Urgent Sell"
           >
-            <BiSolidBadgeCheck />
+            <TbBadgeFilled />
           </div>
         )}
       </div>

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Inventory from "../../../public/Images/inventory-1.png";
 import Link from "next/link";
+import Counter from "../Counter/Counter";
 
 const Homes = () => {
   return (
@@ -20,10 +21,17 @@ const Homes = () => {
           </p>
         </Link>
         <div className="font-serif font-bold text-2xl mt-4">
-          <p>
-            14K<span className="mx-10">23K</span>
-            <span>534K</span>
-          </p>
+          <div className="flex">
+            <div className="flex mr-3">
+              <Counter end={143} duration={3} />K
+            </div>
+            <div className="flex mr-3">
+              <Counter end={352} duration={5} />K
+            </div>
+            <div className="flex mr-2">
+              <Counter end={7052} duration={7} />K
+            </div>
+          </div>
         </div>
         <div>
           <p className="mt-2 ">Brand Owners Active Users Partners</p>

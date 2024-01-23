@@ -7,8 +7,10 @@ import {
 } from "@/Redux/Features/AuthApi/authApi";
 import Loader from "@/Loader/Loader";
 import { useRouter } from "next/navigation";
+import userImage from "../../../../public/Images/user.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { logStatus } from "@/Redux/Features/AuthApi/authSlice";
+import Image from "next/image";
 const Poppin = Noto_Sans({
   weight: "600",
   subsets: ["latin"],
@@ -42,51 +44,68 @@ const SettingsDashboard = () => {
           </h2>
           <hr className="w-11/12 bg-gray-400 mt-2" />
         </div>
-        <div className="ml-3">
-          <h2 className="text-2xl font-sans mb-5 font-semibold text-gray-600 mt-5">
-            Account Details
-          </h2>
-          <p className="text-cyan-200  ">
-            Phone No:{" "}
-            <span className="text-white underline">
-              {isSuccess && data?.phone}
-            </span>
-          </p>
-          <div className="flex flex-col mt-3">
-            <label
-              htmlFor="name"
-              className="text-gray-400 text-2xl  font-bold  mb-1"
-            >
-              Name:<span className="text-blue-200"> {data?.name || ""}</span>
-            </label>
-          </div>
-          <div className="flex flex-col mt-3">
-            <label htmlFor="name" className="text-gray-400 text-xl  mb-1">
-              Location :
-              <span className="text-blue-200">
-                {data?.userLocation || null}
+        <div className="sm:flex justify-between">
+          <div className="ml-3">
+            <h2 className="text-2xl font-sans mb-5 font-semibold text-gray-600 mt-5">
+              Account Details
+            </h2>
+            <p className="text-cyan-200  ">
+              Phone No:{" "}
+              <span className="text-white underline">
+                {isSuccess && data?.phone}
               </span>
-            </label>
+            </p>
+            <div className="flex flex-col mt-3">
+              <label
+                htmlFor="name"
+                className="text-gray-400 text-2xl  font-bold  mb-1"
+              >
+                Name:<span className="text-blue-200"> {data?.name || ""}</span>
+              </label>
+            </div>
+            <div className="flex flex-col mt-3">
+              <label htmlFor="name" className="text-gray-400 text-xl  mb-1">
+                Location :
+                <span className="text-blue-200">
+                  {data?.userLocation || null}
+                </span>
+              </label>
+            </div>
+            <div className="flex flex-col mt-3">
+              <label htmlFor="name" className="text-gray-400 text-xl  mb-1">
+                Sub Location :
+                <span className="text-blue-200">
+                  {data?.userSubLocation || null}
+                </span>
+              </label>
+            </div>
+            <div className="flex flex-col mt-3">
+              <label htmlFor="name" className="text-gray-400 text-xl  mb-1">
+                Gender :
+                <span className="text-blue-200"> {data?.gender || null}</span>
+              </label>
+            </div>
+            <div className="flex flex-col mt-3">
+              <label htmlFor="name" className="text-gray-400 text-xl  mb-1">
+                Birthday:
+                <span className="text-blue-200"> {data?.dob || null}</span>
+              </label>
+            </div>
           </div>
-          <div className="flex flex-col mt-3">
-            <label htmlFor="name" className="text-gray-400 text-xl  mb-1">
-              Sub Location :
-              <span className="text-blue-200">
-                {data?.userSubLocation || null}
+          <div className="mr-[10%] text-center">
+            <Image
+              width={250}
+              height={350}
+              src={data?.userImageLink ? data?.userImageLink : userImage}
+              alt="image"
+              className="rounded-sm border-2 border-green-400 h-56 mt-3"
+            />
+
+            <div className="mt-3 ">
+              <span className="text-xl text-gray-500">
+                Email: {isSuccess && data?.email}
               </span>
-            </label>
-          </div>
-          <div className="flex flex-col mt-3">
-            <label htmlFor="name" className="text-gray-400 text-xl  mb-1">
-              Gender :
-              <span className="text-blue-200"> {data?.gender || null}</span>
-            </label>
-          </div>
-          <div className="flex flex-col mt-3">
-            <label htmlFor="name" className="text-gray-400 text-xl  mb-1">
-              Birthday:
-              <span className="text-blue-200"> {data?.dob || null}</span>
-            </label>
+            </div>
           </div>
         </div>
         <hr className="w-11/12 bg-gray-400 mt-3" />
