@@ -16,7 +16,8 @@ const authApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["loginstatus", "getSpecificUser"],
+      invalidatesTags: ["loginstatus", "getSpecificUser", "getalldata"],
+      providesTags: ["deleteuser"],
     }),
     userLogOut: builder.query({
       query: () => ({

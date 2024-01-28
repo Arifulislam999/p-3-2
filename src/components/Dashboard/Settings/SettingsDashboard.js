@@ -11,6 +11,13 @@ import userImage from "../../../../public/Images/user.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { logStatus } from "@/Redux/Features/AuthApi/authSlice";
 import Image from "next/image";
+import { useEffect } from "react";
+import { useDeleteUserMutation } from "@/Redux/Features/ProductApi/productApi";
+import Modals from "@/components/Modals/Modals";
+import {
+  modalStatus,
+  modalStatusDelete,
+} from "@/Redux/Features/ProductApi/productSlice";
 const Poppin = Noto_Sans({
   weight: "600",
   subsets: ["latin"],
@@ -18,8 +25,12 @@ const Poppin = Noto_Sans({
 const SettingsDashboard = () => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const { logInLogOutStatus } = useSelector((state) => state.logingStatus);
-
+  const { logInLogOutStatus, userId } = useSelector(
+    (state) => state.logingStatus
+  );
+  const { modals, modalDelete } = useSelector(
+    (state) => state.productMonitoring
+  );
   const {
     data: userLoginStatus,
     isLoading,
@@ -31,10 +42,31 @@ const SettingsDashboard = () => {
   const {} = useUserLogOutQuery(undefined, {
     skip: logInLogOutStatus,
   });
-
+  // delete user
+  const [deleteUser, { data: deleteuserData, isLoading: deleteLoading }] =
+    useDeleteUserMutation();
+  useEffect(() => {
+    if (deleteuserData?.status === true) {
+      router.push("/product");
+      dispatch(logStatus(false));
+      localStorage.setItem("token", "");
+    }
+    if (modalDelete === true) {
+      deleteUser(userId);
+      dispatch(modalStatusDelete(false));
+    }
+  }, [deleteuserData, modalDelete]);
+  const handlerDelete = () => {
+    try {
+      dispatch(modalStatus(true));
+    } catch (error) {
+      console.log("error occured:", error?.message);
+    }
+  };
   return !isLoading ? (
     <div className="shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]  bg-slate-800 w-full mt-3 rounded-sm  transition-all delay-150 flex px-3">
       <DashboardLeft />
+      {modals && <Modals message={"আপনি কি আপনার একাউন্টটি ডিলিট করতে চান।"} />}
       <div className="basis-4/5">
         <div>
           <h2
@@ -112,6 +144,8 @@ const SettingsDashboard = () => {
         <div className="flex mb-5">
           <div className="mt-5  ml-5">
             <button
+              onClick={handlerDelete}
+              disabled={deleteLoading}
               type="button"
               className="py-2 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-cyan-400 text-gray-300 hover:bg-cyan-200 disabled:opacity-50 disabled:pointer-events-none dark:bg-cyan-300/70 dark:hover:bg-cyan-200/40  dark:text-gray-200 dark:hover:text-gray-100 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
             >

@@ -6,7 +6,7 @@ const productApi = apiSlice.injectEndpoints({
       query: ({ page, filter, tags }) => ({
         url: `/api/product/getallproduct?page=${page}&filter=${filter}&tags=${tags}`,
       }),
-      providesTags: ["postProduct"],
+      providesTags: ["postProduct", "getalldata", "deleteuser"],
     }),
     getSingleProductDetails: builder.query({
       query: ({ id, creator_id }) => ({
@@ -51,6 +51,13 @@ const productApi = apiSlice.injectEndpoints({
         url: `/api/product/userfavoritequery?page=${pageNo}&userid=${userid}`,
       }),
     }),
+    deleteUser: builder.mutation({
+      query: (userId) => ({
+        url: `/api/user/deleteuser?userId=${userId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["deleteuser"],
+    }),
   }),
 });
 export const {
@@ -62,4 +69,5 @@ export const {
   useFavoriteProductMutation,
   useFavoriteStatusQuery,
   useUserFavoriteProductQuery,
+  useDeleteUserMutation,
 } = productApi;

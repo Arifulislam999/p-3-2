@@ -5,6 +5,8 @@ const initialState = {
   pageCount: null,
   sortText: "Date:Newest on top",
   tag: "",
+  modals: false,
+  modalDelete: false,
 };
 export const productSlice = createSlice({
   name: "productSlice",
@@ -22,6 +24,12 @@ export const productSlice = createSlice({
     getSortTagByUser: (state, action) => {
       state.tag = action.payload;
     },
+    modalStatus: (state, action) => {
+      state.modals = action.payload;
+    },
+    modalStatusDelete: (state, action) => {
+      state.modalDelete = action.payload;
+    },
   },
 });
 export const {
@@ -29,5 +37,7 @@ export const {
   paginationPageCount,
   getSortTextByUser,
   getSortTagByUser,
+  modalStatus,
+  modalStatusDelete,
 } = productSlice.actions;
 export default productSlice.reducer;

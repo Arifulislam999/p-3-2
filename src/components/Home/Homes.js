@@ -38,7 +38,7 @@ const Homes = () => {
         </div>
       </div>
       <div className="basis-1/2 ">
-        <Image draggable={false} src={Inventory} />
+        <Image draggable={false} src={Inventory} alt="homepicture" />
       </div>
     </div>
   );

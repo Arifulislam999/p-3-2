@@ -22,6 +22,8 @@ export const apiSlice = createApi({
     "postProduct",
     "semilerProduct",
     "getSpecificUser",
+    "getalldata",
+    "deleteuser",
   ],
   endpoints: (builder) => ({}),
 });
