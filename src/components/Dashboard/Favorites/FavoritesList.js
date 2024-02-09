@@ -51,7 +51,7 @@ const FavoritesList = () => {
         Favorites
       </h2>
       <hr className="w-11/12 bg-gray-400 mt-2" />
-      {userFavoriteItem?.data?.length <= 0 ? (
+      {!userFavoriteItem?.data?.length > 0 ? (
         <div>
           <div>
             <div>
